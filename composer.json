@@ -35,6 +35,10 @@
 		"nette/di"		: "~2.4",
 		"nette/utils"	: "~2.4",
 
+		"neomerx/json-api"	: "^2.0",
+
+		"cloudcreativity/utils-object"	: "^1.0",
+
 		"guzzlehttp/guzzle"	: "^6.2"
 	},
 
