@@ -1,0 +1,58 @@
+{
+	"name"			: "ipub/json-api-client",
+	"type"			: "library",
+	"description"	: "JSON:API client for connecting to apis",
+	"keywords"		: ["json:api", "api", "client", "fastybird", "ipub", "ipublikuj", "framework", "tools"],
+	"homepage"		: "https://github.com/iPublikuj/json-api-client",
+	"license"		: ["GPL-2.0", "GPL-3.0"],
+
+	"authors": [
+		{
+			"name"		: "iPublikuj:cms",
+			"email"		: "info@ipublikuj.eu",
+			"homepage"	: "https://www.ipublikuj.eu/"
+		}
+	],
+
+	"support":{
+		"email"		:"support@fastybird.com",
+		"issues"	:"https://github.com/iPublikuj/json-api-client/issues"
+	},
+
+	"extra": {
+		"ipub"	: {
+			"configuration" : {
+				"extensions" : {
+					"jsonApiClient" : "IPub\\JsonAPIClient\\DI\\JsonAPIClientExtension"
+				}
+			}
+		}
+	},
+
+	"require": {
+		"php"	: ">=7.1.0",
+
+		"nette/di"		: "~2.4",
+		"nette/utils"	: "~2.4",
+
+		"guzzlehttp/guzzle"	: "^6.2"
+	},
+
+	"require-dev": {
+		"nette/bootstrap"		: "~2.4",
+		"nette/mail"			: "~2.4",
+		"nette/robot-loader"	: "~2.4",
+		"nette/safe-stream"		: "~2.3",
+		"nette/tester"			: "~2.0",
+
+		"tracy/tracy"	: "~2.4",
+
+		"pds/skeleton"	: "~1.0"
+	},
+
+	"autoload": {
+		"psr-0": {
+			"IPub\\JsonAPIClient\\": "src/"
+		}
+	}
+}
