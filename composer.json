@@ -2,7 +2,7 @@
 	"name"			: "ipub/json-api-client",
 	"type"			: "library",
 	"description"	: "JSON:API client for connecting to apis",
-	"keywords"		: ["json:api", "api", "client", "fastybird", "ipub", "ipublikuj", "framework", "tools"],
+	"keywords"		: ["jsonapi", "json", "api", "client", "fastybird", "ipub", "ipublikuj", "framework", "tools"],
 	"homepage"		: "https://github.com/iPublikuj/json-api-client",
 	"license"		: ["GPL-2.0", "GPL-3.0"],
 
