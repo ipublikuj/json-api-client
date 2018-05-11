@@ -1,10 +1,2 @@
-application:
-	mapping:
-		*: IPubTests\ConfirmationDialog\*Presenter
-
-services:
-	# Test presenter
-	presenters.test:
-		class: IPubTests\ConfirmationDialog\TestPresenter
-
-	router: IPubTests\ConfirmationDialog\Libs\RouterFactory::createRouter
+jsonApiClient:
+	baseUri: https://jsonapi.endpoint.ipublikuj.eu/v1
