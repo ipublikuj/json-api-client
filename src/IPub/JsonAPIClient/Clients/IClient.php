@@ -105,6 +105,11 @@ interface IClient
 	public function addAuthorization(string $token) : void;
 
 	/**
+	 * @return void
+	 */
+	public function removeAuthorization() : void;
+
+	/**
 	 * @param string $header
 	 * @param string $value
 	 *

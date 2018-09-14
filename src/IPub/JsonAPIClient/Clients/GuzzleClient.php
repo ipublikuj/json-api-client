@@ -172,6 +172,16 @@ class GuzzleClient implements IClient
 	/**
 	 * {@inheritdoc}
 	 */
+	public function removeAuthorization() : void
+	{
+		if (isset($this->headers['Authorization'])) {
+			unset($this->headers['Authorization']);
+		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function addHeader(string $header, string $value) : void
 	{
 		$this->headers[$header] = $value;
