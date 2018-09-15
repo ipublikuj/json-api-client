@@ -288,10 +288,6 @@ class GuzzleClient implements IClient
 	 */
 	private function createDocumentObject(PsrRequest $request, PsrResponse $response = NULL) : ?Objects\IDocument
 	{
-		if (!$this->httpContainsBody($request, $response)) {
-			return NULL;
-		}
-
 		return new Objects\Document(Utils\Json::decode(($response ? (string) $response->getBody() : (string) $request->getBody())));
 	}
 
@@ -305,91 +301,7 @@ class GuzzleClient implements IClient
 	 */
 	private function createErrorObject(PsrRequest $request, PsrResponse $response = NULL) : ?Objects\IMutableError
 	{
-		if (!$this->httpContainsBody($request, $response)) {
-			return NULL;
-		}
-
 		return Objects\Error::create(Utils\Json::decode(($response ? (string) $response->getBody() : (string) $request->getBody()), Utils\Json::FORCE_ARRAY));
-	}
-
-	/**
-	 * @param PsrRequest $request
-	 * @param PsrResponse|NULL $response
-	 *
-	 * @return bool
-	 */
-	private function httpContainsBody(PsrRequest $request, ?PsrResponse $response = NULL) : bool
-	{
-		return $response ?
-			$this->doesResponseHaveBody($request, $response) :
-			$this->doesRequestHaveBody($request);
-	}
-
-	/**
-	 * Does the HTTP request contain body content?
-	 *
-	 * The presence of a message-body in a request is signaled by the inclusion of a Content-Length or
-	 * Transfer-Encoding header field in the request's message-headers.
-	 * https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.3
-	 *
-	 * However, some browsers send a Content-Length header with an empty string for e.g. GET requests
-	 * without any message-body. Therefore rather than checking for the existence of a Content-Length
-	 * header, we will allow an empty value to indicate that the request does not contain body.
-	 *
-	 * @param PsrRequest $request
-	 *
-	 * @return bool
-	 */
-	private function doesRequestHaveBody(PsrRequest $request) : bool
-	{
-		if ($request->hasHeader('Transfer-Encoding')) {
-			return TRUE;
-		}
-
-		if (!$contentLength = $request->getHeader('Content-Length')) {
-			return FALSE;
-		}
-
-		return 0 < $contentLength[0];
-	}
-
-	/**
-	 * Does the HTTP response contain body content?
-	 *
-	 * For response messages, whether or not a message-body is included with a message is dependent
-	 * on both the request method and the response status code (section 6.1.1). All responses to the
-	 * HEAD request method MUST NOT include a message-body, even though the presence of entity-header
-	 * fields might lead one to believe they do. All 1xx (informational), 204 (no content), and 304
-	 * (not modified) responses MUST NOT include a message-body. All other responses do include a
-	 * message-body, although it MAY be of zero length.
-	 * https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.3
-	 *
-	 * @param PsrRequest $request
-	 * @param PsrResponse $response
-	 *
-	 * @return bool
-	 */
-	private function doesResponseHaveBody(PsrRequest $request, PsrResponse $response) : bool
-	{
-		if (strtoupper($request->getMethod()) === 'HEAD') {
-			return FALSE;
-		}
-
-		$status = $response->getStatusCode();
-
-		if ((100 <= $status && 200 > $status) || 204 === $status || 304 === $status) {
-			return FALSE;
-		}
-
-		if ($response->hasHeader('Transfer-Encoding')) {
-			return TRUE;
-		}
-
-		if (!$contentLength = $response->getHeader('Content-Length')) {
-			return FALSE;
-		}
-
-		return 0 < $contentLength[0];
 	}
 
 	/**

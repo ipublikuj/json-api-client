@@ -122,11 +122,9 @@ class Error implements IMutableError
 	{
 		$errors = new ErrorCollection;
 
-		/*
 		foreach ($input as $item) {
-			$errors->add(self::create($item));
+			$errors->add(self::create((array) $item));
 		}
-		*/
 
 		return $errors;
 	}
